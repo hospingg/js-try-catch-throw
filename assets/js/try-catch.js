@@ -6,16 +6,21 @@ function pow(base, exponent){
         if (typeof base !== "number" || typeof exponent !== "number"){
             throw TypeError("The arguments must be number")
         }
+        if(!Number.isInteger(exponent)){
+            throw ReferenceError('The exponent should be integer')
+        }
+        if (exponent<0){
+            throw ReferenceError('The exponent should be positive')
+        }
         if(exponent > 0){
             return base * pow(base, exponent-1)
         }
         if(exponent === 0){
             return 1
         }
-        
     }
 try{
-    pow(4, true)
+    pow(4, 3.5)
 }
 catch(err){
     console.log(err)
@@ -24,17 +29,20 @@ catch(err){
 // Для спрощення замість рекурсивного алгоритму можна реалізувати повернення значення base**exponent, показник exponent вважайте цілим невід'ємним числом, 
 // реалізувати тільки те, що стосується роботи з помилками.
 
-function pow(base, exponent){
-    if(exponent % 2 != 0 ){
-        throw ReferenceError('The exponent should be integer')
+function pow2(base, exponent){
+    if (typeof base !== "number" || typeof exponent !== "number"){
+        throw TypeError("The arguments must be number")
+    }
+    if(!Number.isInteger(exponent)){
+        throw RangeError('The exponent should be integer')
     }
     if (exponent<0){
-        throw ReferenceError('The exponent should be positive')
+        throw RangeError('The exponent should be positive')
     }
     return base**exponent
 }
 try{
-    pow(3, -2)
+    pow2(3, -2)
 }
 catch(err){
     console.log(err)
@@ -50,10 +58,10 @@ function isEmailCorrect(email){
         throw TypeError('Email should be sting')
     }
     if(!email.includes('@')){
-        throw ReferenceError('The email does not have "@" ')
+        throw RangeError('The email does not have "@" ')
     }
     if (email.indexOf('@') === 0 || email.indexOf('@') === email.length - 1) {
-        throw ReferenceError('"@" cannot be the first or last character');
+        throw RangeError('"@" cannot be the first or last character');
     }
     return email
 }
